@@ -1,0 +1,20 @@
+{% extends 'baseexam.html' %}
+{% load static %}
+{% block content %}
+<div style="height: 100%;">
+  <h4 style="margin-top: 10px;margin-bottom: 5px;color:#0c7aad;">Malankara Syrian Orthodox Sunday School Association of North America<span class="icon-emo-happy"></span></h4>
+  <h5 style="margin-top: 10px;margin-bottom: 5px;color:#0c7aad;">Catechism Class X Final Exam 2020<span class="icon-emo-happy"></span></h5>
+  <img style="height: fit-content;" src="{% static 'images/2020Exam.png' %}" alt="" class="img-fluid">
+  <br>
+  {% if user.is_authenticated is False %}
+  <a class="margin-button" href="{% url 'signup' %}">
+    <button class="btn btn-primary" style="margin-bottom: 15px; margin-top: 15px;font-size: large;"> <span class="glyphicon glyphicon-send"></span> Register for 2020 Exam </button>
+  </a>
+  <br>
+  <p class="lead">
+    If you already have an account, go ahead and 
+    <a href="{% url 'login' %}">log in</a>
+  </p>
+  {% endif %}
+</div>
+{% endblock %}

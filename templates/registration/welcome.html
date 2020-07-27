@@ -1,0 +1,16 @@
+{% extends 'baseexam.html' %}
+{% block banner %}
+{% load static %}
+
+{% endblock %}
+{% block content %}
+<div class="container animated fadeIn">
+  <div class="row">
+    <h1 class="header-title mt-3"> {{ user_type }} </h1>
+    {% include 'includes/breadcrumb.html' %}
+  <h2>Thank you for registering for the November 2020 catechism examination.</h2>
+    <br/>
+    <p style="text-align: left;">User name is <em style="font-weight: bold;">{{username}}</em>. Please note your Username  for future refernce.<br>Your application will be approved after the screening process.</p>
+  </div>
+</div>
+{% endblock %}

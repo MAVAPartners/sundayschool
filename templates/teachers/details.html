@@ -1,0 +1,86 @@
+<!-- To show list of students -->
+{% extends 'baseexam.html' %}
+
+{% block style %}
+{% load static %}
+<link href="{% static 'css/students.css' %}" rel="stylesheet">
+<style type="text/css">
+  .media {
+    margin-top: 10px
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div style="min-height: 55vh;">
+<br>
+<div class="row">
+  <h1 class="header-title mt-3">Login</h1>
+  {% include 'includes/breadcrumb.html' %}
+  <hr>
+  <div class="col-12" id="parent" >
+    <div class="col-sm-12 content-p">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-12">
+    <table class="table">
+    <thead class="table-heading">
+      <tr>
+      <th colspan="2">Student Details</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr style="text-align: left;">
+        <td><p class="row-rightside">Name</p></td>
+        <td ><p>{{students_details.user.first_name}} {{students_details.user.last_name}}</p></td>
+    <tr style="text-align: left;">
+      <td><p class="row-rightside">School Name</p></td>
+      <td><p>{{students_details.school.name}}</p></td>
+    </tr>
+    <tr style="text-align: left;">
+      <td><p class="row-rightside">Address 1</p></td>
+      <td><p>{{students_details.address}}, {{students_details.city}} {{students_details.state}} {{students_details.zipcode}}</p></td>
+    </tr>
+    <tr style="text-align: left;">
+      <td><p class="row-rightside">Address 2</p></td>
+      <td><p>{{students_details.address2}}, {{students_details.city}} {{students_details.state}} {{students_details.zipcode}}</p></td>
+    </tr>
+    <tr style="text-align: left;">
+      <td><p class="row-rightside">Phone No</p></td>
+      <td><p>{{students_details.phoneno}}</p></td>
+    </tr>
+    <tr style="text-align: left;">
+      <td><p class="row-rightside">Accademic Year</p></td>
+      <td><p>{{students_details.accademicYear}}</p></td>
+    </tr>
+    <tr style="text-align: left;">
+      <td><p class="row-rightside">Score</p></td>
+      <td>{% if students_details.score == 0	%}
+        <p>NA</p>
+        {% else %}
+        <p>{{students_details.score}}</p>
+        {% endif %}
+      </td>
+    </tr>
+    <tr style="text-align: left;">
+      <td><p class="row-rightside">Status</p></td>
+      <td>{% if students_details.status == 0	%}
+        <p>Pending</p> 
+      {% elif students_details.status == 1 %}
+        <p>Approved</p> 
+      {% else %}
+      <p>Rejected</p> 
+      {% endif %}</td></td>
+    </tr>
+  </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

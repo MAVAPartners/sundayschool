@@ -1,0 +1,52 @@
+{% load static %}
+
+{% comment %} for inner footer {% endcomment %}
+<footer>
+  <hr>
+  <div>
+    <p class="contact-info" style="text-align: center;">Malankara Syrian Orthodox Sunday School Association of 
+      North America
+    <br>270 Whippany Rd 
+        Whippany, NJ 07981 
+        <br>
+  </div>
+  <div style="width: 100%; background-color:#138ad9;">
+    <div class="tg-footerbarexam">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="tg-copyrights">
+              <p style="margin-bottom:0px;color:#fff">
+                <font style="vertical-align: inherit;">
+                  <font style="vertical-align: inherit;">© 2020 All Rights Reserved. </font>
+                </font>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript -->
+{% comment %}
+<script src="{% static 'js/jquery.slim.min.js' %}"></script> {% endcomment %}
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+{% comment %} for events tiles {% endcomment %}
+<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+<script src="{% static 'js/fontawesome/892dade262.js' %}"></script>
+<script>
+  $(document).ready(function () {
+    $(".fancybox").fancybox({
+      openEffect: "none",
+      closeEffect: "none"
+    });
+  });
+</script>
+
+</body>
+
+</html>

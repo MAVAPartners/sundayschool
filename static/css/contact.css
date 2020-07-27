@@ -1,0 +1,106 @@
+
+	/* Conatct start */
+
+    .header-title
+    {
+      text-align: center;
+      color:#B27D12;
+    }
+
+    #tip
+    {
+        display:none;
+    }
+
+    .fadeIn
+    {
+      animation-duration: 3s;
+    }
+
+    .form-control
+    {
+        border-radius:0px;
+        border:1px solid #d2a560;
+    }
+
+    .form-control:focus {
+        color: #495057;
+        background-color: #fff;
+        border:1px solid #ac731c;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(242, 223, 181);
+    }
+
+
+    .textarea-contact
+    {
+        resize:none;
+    }
+
+    .btn-send {
+        border-radius: 0px;
+        border: 1px solid #098aa9;
+        background: #0bacd3;
+        color: #fff;
+        width:30% !important;
+        padding:10px;
+    }
+
+    .btn-send:hover
+    {
+        border:1px solid #098aa9;
+        background:#0bacd3;
+        color:#000;
+        transition:background 0.5s;
+        width:30% !important;
+        padding:10px;
+    }
+
+    .second-portion
+    {
+        margin-top:50px;
+    }
+
+    @import "//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css";
+    @import "http://fonts.googleapis.com/css?family=Roboto:400,500";
+
+    .box > .icon { text-align: center; position: relative; }
+    .box > .icon > .image { position: relative; z-index: 2; margin: auto; width: 88px; height: 88px; border: 8px solid white; line-height: 88px; border-radius: 50%; background: #00bfff; vertical-align: middle; }
+    .box > .icon:hover > .image { background: #7f5604; }
+    .box > .icon > .image > i { font-size: 36px !important; color: #fff !important; }
+    .box > .icon:hover > .image > i { color: white !important; }
+    .box > .icon > .info { margin-top: -13px; background: rgba(0, 0, 0, 0.04); border: 1px solid #7f5604; padding: 15px 0 10px 0; min-height:163px;}
+    .box > .icon:hover > .info { background: rgba(0, 0, 0, 0.04); border-color: #7f5604; color: white; }
+    .box > .icon > .info > h3.title { font-family: 'HelveticaNowText-Regular' !important; font-size: 16px; color: #7f5604; font-weight: 700; }
+    .box > .icon > .info > p { font-family: 'HelveticaNowText-Regular' !important; font-size: 15px; color: #666; line-height: 1.5em; margin: 20px;}
+    .box > .icon:hover > .info > h3.title, .box > .icon:hover > .info > p, .box > .icon:hover > .info > .more > a { color: #7f5604; }
+    .box > .icon > .info > .more a { font-family: 'HelveticaNowText-Regular' !important; font-size: 12px; color: #222; line-height: 12px; text-transform: uppercase; text-decoration: none; }
+    .box > .icon:hover > .info > .more > a { color: #fff; padding: 6px 8px; background-color: #63B76C; }
+    .box .space { height: 30px; }
+
+    @media only screen and (max-width: 768px)
+    {
+        .contact-form
+        {
+            margin-top:25px;
+        }
+
+        .btn-send
+        {
+            width: 100%;
+            padding:10px;
+        }
+
+        .second-portion
+        {
+            margin-top:25px;
+        }
+    }
+
+    .validation_alert {
+      color: rgb(250, 76, 76);
+      font: italic;
+    }
+
+
+/* Conatct end */

@@ -1,0 +1,218 @@
+<!-- To show list of students -->
+{% extends 'baseexam.html' %}
+
+{% block style %}
+{% load static %}
+<link href="{% static 'css/teachers.css' %}" rel="stylesheet">
+<style type="text/css">
+  .media {
+    margin-top: 10px
+  }
+  .table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.td, .th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.loader {
+    border: 16px solid #fcf7e4;
+    /* Light grey */
+    border-top: 16px solid #045ba8;
+    /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  select {
+  display: block;
+  margin: 0 auto;
+  background-color: #2A3F54;
+  padding: 10pt;
+}
+
+  btn-new {
+    background-color: #2A3F54;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div style="min-height: 55vh;">
+<br>
+  {% include 'includes/breadcrumb.html' %}
+  <div class="text-center" style="display:none;" id="loadingDiv">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div id="pageID" class="col-12" id="parent" style="justify-content: center;">
+    <div class="col-sm-12 content-p">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    </div>
+    <br>
+    <div class="col-12">
+      <table class="table">
+        <thead class="table-heading">
+          <tr>
+          <th>Select</th>
+          <th>Username</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>School Name</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+    {% for student in students %}
+      <tr class="{% cycle 'row1' 'row2' %}">
+        <td><input name="studentid" type="checkbox" value="{{ student.id }}" /></td>
+        <td>{{ student.user.username }}</td>
+        <td>{{ student.user.first_name }}</td>
+        <td>{{ student.user.last_name }}</td>
+        <td>{{ student.school.name }}</td>
+        <td>{% if student.status == 0	%}
+          <p>Pending</p> 
+        {% elif student.status == 1 %}
+          <p>Approved</p> 
+        {% else %}
+        <p>Rejected</p> 
+        {% endif %}</td>
+     </tr>
+    {% empty %}
+      <div class="col-sm-6" style="margin-top: 10pt;"><p class="text-warning">No students registred.</p></div>
+    {% endfor %}
+  </table>
+  {% if is_paginated %}
+  <div class="pagination">
+      <span class="page-links">
+          {% if page_obj.has_previous %}
+              <a href="/teacher?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+          <span class="page-current">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+          {% if page_obj.has_next %}
+              <a href="/teacher?page={{ page_obj.next_page_number }}">next</a>
+          {% endif %}
+      </span>
+  </div>
+{% endif %}
+{% if students %}
+<div class="row">
+  <div class="col-6">
+    <button class="btn btn-danger"  onclick="saveStudent(2)">Reject</button>
+  </div>
+  <div class="col-6"><button class="btn btn-primary"  onclick="saveStudent(1)">Approve</button></div>
+  </div>
+  </div>
+{% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+var status = 1;
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function saveStudent(status){
+  var loading = document.getElementById("loadingDiv");
+  var mainPage = document.getElementById("pageID");
+  loading.style.display = "block";
+  mainPage.style.display = "none";
+  //status = type
+  console.log('.....status.......'+status)
+  var checkboxes = document.querySelectorAll('input[name="studentid"]:checked'), values = [];
+    Array.prototype.forEach.call(checkboxes, function(el) {
+        values.push({"id" : el.value, "is_approved" : status == 1 ? true : status == 2 ? false : false , "status": status});
+    });
+  
+  if(values.length < 1){
+    alert("Pleease select and proceed");
+  }
+  else{
+  loading.style.display = "block";
+  var csrftoken = getCookie('csrftoken');
+  console.log(csrftoken+"...checked values........."+requestData)
+
+  var requestData = {'student': values }
+  console.log("...checked values....4444....."+JSON.stringify(requestData))
+
+  //alert("show students......"+JSON.stringify(requestData));
+  url = 'http://35.185.59.151/api/liststudent/'
+  //urlLocal = 'http://127.0.0.1:8000/api/liststudent/'
+  fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', 'X-CSRFToken' : csrftoken },
+      body: JSON.stringify(requestData),
+    })
+    .then(response => response.json())
+    .then(response => {
+      //alert("show students......"+JSON.stringify(response));
+      if(response.status == 200){
+        loading.style.display = "none";
+        mainPage.style.display = "block";
+      }
+      location.reload() 
+      alert("Student status updated successfully")
+    })
+    .catch(err => {
+        // Do something for an error here
+        console.log("...checked error....4444....."+JSON.stringify(err))
+        alert("show students......"+JSON.stringify(err));
+        loading.style.display = "none";
+        mainPage.style.display = "block";
+    });
+  }
+}
+
+
+$('#statustype').change(function (e) {
+    //alert($(e.target).val());
+    status = $(e.target).val()
+    console.log(status+'...statustype....'+$(e.target).val())
+});
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+<!-- To show list of students -->
+{% extends 'baseexam.html' %}
+
+{% block css %}
+<style type="text/css">
+  .media {
+    margin-top: 10px
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  {% include 'students/_header.html' with active='students' %}
+  <div style="min-height: 55vh;">
+<br>
+<div class="row">
+  <h1 class="header-title mt-3">Login</h1>
+  {% include 'includes/breadcrumb.html' %}
+  <hr>
+  <div class="col-12" id="parent" style="justify-content: center;">
+    <div class="col-sm-12 content-p">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }} </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-12">
+    {% for student in students %}
+      <ul class="d-flex flex-wrap">
+        <li class="list-group-item"><a href="#home">{{student.user.username}}</a></li>
+        <li class="list-group-item"><a href="#news">{{student.user.first_name}}</a></li>
+        <li class="list-group-item" ><a href="#contact">{{student.user.last_name}}</a></li>
+        <li class="list-group-item"><a href="#about">About</a></li>
+      </ul>
+    {% empty %}
+      <div class="col-sm-6"><p class="text-warning">No student matched your search.</p></div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
